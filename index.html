@@ -2,48 +2,84 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>Q4 Tax Planner — Wizard</title>
+    <title>2025 Federal Tax Calculator</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
-    <div class="wrap">
-      <h1>Q4 Tax Planner</h1>
-      <p class="muted">Educational estimator — not individualized tax advice.</p>
+    <header class="hero">
+      <div class="hero-inner">
+        <h1>2025 Federal Tax Calculator</h1>
+        <p class="sub">Step-by-step tax planning for business owners</p>
+      </div>
+      <div class="hero-bar"></div>
+    </header>
+
+    <main class="wrap">
+      <div class="stephead">
+        <span id="stepText">Step 1 of 11</span>
+      </div>
 
       <!-- progress -->
       <div class="progress"><div id="bar" class="bar"></div></div>
 
       <!-- STEP 1 -->
-      <section class="step active" data-step="1">
-        <h3>About you</h3>
+      <section class="step active" data-step="1" aria-labelledby="h-step-1">
+        <h2 id="h-step-1">Filing Status</h2>
+        <p class="muted">Select your filing status for 2025</p>
+
+        <div class="choices">
+          <label class="choice">
+            <input type="radio" name="fs" value="single" checked />
+            <div class="choice-body">
+              <div class="choice-title">Single</div>
+              <div class="choice-sub">Standard deduction: $15,000</div>
+            </div>
+          </label>
+
+          <label class="choice">
+            <input type="radio" name="fs" value="mfj" />
+            <div class="choice-body">
+              <div class="choice-title">Married Filing Jointly</div>
+              <div class="choice-sub">Standard deduction: $30,000</div>
+            </div>
+          </label>
+
+          <label class="choice">
+            <input type="radio" name="fs" value="mfs" />
+            <div class="choice-body">
+              <div class="choice-title">Married Filing Separately</div>
+              <div class="choice-sub">Standard deduction: $15,000</div>
+            </div>
+          </label>
+
+          <label class="choice">
+            <input type="radio" name="fs" value="hoh" />
+            <div class="choice-body">
+              <div class="choice-title">Head of Household</div>
+              <div class="choice-sub">Standard deduction: $22,500</div>
+            </div>
+          </label>
+        </div>
+
         <div class="grid">
-          <div>
-            <label>Filing status</label>
-            <select id="filingStatus">
-              <option value="single">Single</option>
-              <option value="mfj">Married Filing Jointly</option>
-              <option value="mfs">Married Filing Separately</option>
-              <option value="hoh">Head of Household</option>
-              <option value="qw">Qualifying Widow(er)</option>
-            </select>
-          </div>
           <div>
             <label>Deduction</label>
             <select id="deductionType">
-              <option value="standard">Standard</option>
+              <option value="standard" selected>Standard</option>
               <option value="itemized">Itemized</option>
             </select>
           </div>
         </div>
+
         <div class="btns">
-          <button class="btn" id="next1">Next</button>
+          <button class="btn" id="next1">Continue</button>
         </div>
       </section>
 
       <!-- STEP 2 -->
-      <section class="step" data-step="2">
-        <h3>Income</h3>
+      <section class="step" data-step="2" aria-labelledby="h-step-2">
+        <h2 id="h-step-2">Income</h2>
         <div class="grid">
           <div><label>W-2 wages</label><input id="wages" type="number" min="0" step="500" value="0" /></div>
           <div><label>Schedule C profit</label><input id="sched_c_profit" type="number" min="0" step="500" value="0" /></div>
@@ -52,13 +88,13 @@
         </div>
         <div class="btns">
           <button class="btn secondary" id="back2">Back</button>
-          <button class="btn" id="next2">Next</button>
+          <button class="btn" id="next2">Continue</button>
         </div>
       </section>
 
       <!-- STEP 3 -->
-      <section class="step" data-step="3">
-        <h3>Deductions & Contributions</h3>
+      <section class="step" data-step="3" aria-labelledby="h-step-3">
+        <h2 id="h-step-3">Deductions & Contributions</h2>
         <div class="grid">
           <div><label>Itemized amount (if itemized)</label><input id="itemized" type="number" min="0" step="500" value="0" /></div>
           <div><label>Retirement contributions</label><input id="retirement_contrib" type="number" min="0" step="100" value="0" /></div>
@@ -72,9 +108,10 @@
 
       <!-- RESULTS -->
       <section id="results" class="results" style="display:none;"></section>
-    </div>
+
+      <p class="fineprint">Educational estimator — not individualized tax advice.</p>
+    </main>
 
     <script type="module" src="./js/app.js"></script>
   </body>
 </html>
-
