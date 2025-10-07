@@ -1,33 +1,31 @@
-// js/app.js — minimal wizard controller + results rendering
-
 import { computeResults, currency } from './calc_tax.js';
 import * as C from './constants.js';
 
-// --- Wizard paging ---
-const totalSteps = 11;       // visual only (we'll add more steps later)
 let current = 1;
+const totalSteps = 11; // visual count; we'll add more pages later
 
-function showStep(n) {
-  current = n;
-  // hide all steps, show only the requested one
-  document.querySelectorAll('.step').forEach((el) => {
-    el.classList.remove('active');
-    el.toggleAttribute('hidden', true);
-  });
+const stepEls = () => Array.from(document.querySelectorAll('.step'));
+const bar = () => document.getElementById('bar');
+const stepText = () => document.getElementById('stepText');
+
+function showStep(n){
+  current = Math.max(1, Math.min(n, stepEls().length));
+  stepEls().forEach(el => { el.classList.remove('active'); el.setAttribute('hidden',''); });
   const active = document.querySelector(`.step[data-step="${current}"]`);
-  if (active) {
-    active.classList.add('active');
-    active.removeAttribute('hidden');
-  }
-  // progress + "Step X of 11"
-  const bar = document.getElementById('bar');
-  const stepText = document.getElementById('stepText');
-  if (bar) bar.style.width = Math.round((current / totalSteps) * 100) + '%';
-  if (stepText) stepText.textContent = `Step ${current} of ${totalSteps}`;
+  if (active){ active.classList.add('active'); active.removeAttribute('hidden'); }
+  if (bar()) bar().style.width = Math.round((current/totalSteps)*100) + '%';
+  if (stepText()) stepText().textContent = `Step ${current} of ${totalSteps}`;
 }
 
-// --- Wire the buttons ---
-// These IDs must exist in index.html
+// Deduction UI behavior
+function syncItemizedVisibility(){
+  const sel = document.getElementById('deductionType');
+  const box = document.getElementById('itemizedBox');
+  if (!sel || !box) return;
+  if (sel.value === 'itemized') box.classList.remove('hide'); else box.classList.add('hide');
+}
+
+// nav events (event delegation)
 document.addEventListener('click', (e) => {
   const id = e.target.id;
   if (!id) return;
@@ -36,30 +34,37 @@ document.addEventListener('click', (e) => {
   if (id === 'back2') { e.preventDefault(); showStep(1); }
   if (id === 'next2') { e.preventDefault(); showStep(3); }
   if (id === 'back3') { e.preventDefault(); showStep(2); }
+  if (id === 'next3') { e.preventDefault(); showStep(4); }
+  if (id === 'back4') { e.preventDefault(); showStep(3); }
   if (id === 'calcBtn') { e.preventDefault(); handleCalculate(); }
 });
 
-// --- Gather inputs and compute ---
-function getFilingStatus() {
+// react to deduction change
+document.addEventListener('change', (e) => {
+  if (e.target.id === 'deductionType') syncItemizedVisibility();
+});
+
+function getFilingStatus(){
   const r = document.querySelector('input[name="fs"]:checked');
   return r ? r.value : 'single';
 }
 
-function handleCalculate() {
+function handleCalculate(){
   const state = {
     filingStatus: getFilingStatus(),
     deductionType: document.getElementById('deductionType').value,
+    itemized: +document.getElementById('itemized')?.value || 0,
+
     wages: +document.getElementById('wages').value || 0,
     sched_c_profit: +document.getElementById('sched_c_profit').value || 0,
     other_income: +document.getElementById('other_income').value || 0,
     ltcg: +document.getElementById('ltcg').value || 0,
-    itemized: +document.getElementById('itemized').value || 0,
+
     retirement_contrib: +document.getElementById('retirement_contrib').value || 0,
     hsa_contrib: +document.getElementById('hsa_contrib').value || 0
   };
 
   const r = computeResults(state, C);
-
   const box = document.getElementById('results');
   box.style.display = 'block';
   box.innerHTML = `
@@ -71,16 +76,14 @@ function handleCalculate() {
     <div class="row"><div>Self-employment tax</div><div>${currency(r.seTax)}</div></div>
     <div class="row"><div><strong>Total estimated tax</strong></div><div><strong>${currency(r.totalTax)}</strong></div></div>
   `;
-
-  // keep the bar near the end
-  showStep(3);
+  showStep(4); // keep bar near end
 }
 
-// --- Start on step 1 ---
+// init
 document.addEventListener('DOMContentLoaded', () => {
-  // ensure all non-active steps hidden on first load
-  document.querySelectorAll('.step').forEach((el) => {
-    if (!el.classList.contains('active')) el.setAttribute('hidden', '');
-  });
+  // hide all but step 1
+  stepEls().forEach((el, i) => { if (i!==0) el.setAttribute('hidden',''); });
+  syncItemizedVisibility();
   showStep(1);
 });
+
