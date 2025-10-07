@@ -2,19 +2,79 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>Q4 Tax Planner</title>
+    <title>Q4 Tax Planner — Wizard</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
     <div class="wrap">
-      <div class="card">
-        <h1>Q4 Tax Planner</h1>
-        <p class="muted">Educational estimator — not individualized tax advice.</p>
-        <div id="app"></div>
-        <div id="results" class="results" style="display:none;"></div>
-      </div>
+      <h1>Q4 Tax Planner</h1>
+      <p class="muted">Educational estimator — not individualized tax advice.</p>
+
+      <!-- progress -->
+      <div class="progress"><div id="bar" class="bar"></div></div>
+
+      <!-- STEP 1 -->
+      <section class="step active" data-step="1">
+        <h3>About you</h3>
+        <div class="grid">
+          <div>
+            <label>Filing status</label>
+            <select id="filingStatus">
+              <option value="single">Single</option>
+              <option value="mfj">Married Filing Jointly</option>
+              <option value="mfs">Married Filing Separately</option>
+              <option value="hoh">Head of Household</option>
+              <option value="qw">Qualifying Widow(er)</option>
+            </select>
+          </div>
+          <div>
+            <label>Deduction</label>
+            <select id="deductionType">
+              <option value="standard">Standard</option>
+              <option value="itemized">Itemized</option>
+            </select>
+          </div>
+        </div>
+        <div class="btns">
+          <button class="btn" id="next1">Next</button>
+        </div>
+      </section>
+
+      <!-- STEP 2 -->
+      <section class="step" data-step="2">
+        <h3>Income</h3>
+        <div class="grid">
+          <div><label>W-2 wages</label><input id="wages" type="number" min="0" step="500" value="0" /></div>
+          <div><label>Schedule C profit</label><input id="sched_c_profit" type="number" min="0" step="500" value="0" /></div>
+          <div><label>Other income</label><input id="other_income" type="number" min="0" step="500" value="0" /></div>
+          <div><label>Long-term capital gains</label><input id="ltcg" type="number" min="0" step="500" value="0" /></div>
+        </div>
+        <div class="btns">
+          <button class="btn secondary" id="back2">Back</button>
+          <button class="btn" id="next2">Next</button>
+        </div>
+      </section>
+
+      <!-- STEP 3 -->
+      <section class="step" data-step="3">
+        <h3>Deductions & Contributions</h3>
+        <div class="grid">
+          <div><label>Itemized amount (if itemized)</label><input id="itemized" type="number" min="0" step="500" value="0" /></div>
+          <div><label>Retirement contributions</label><input id="retirement_contrib" type="number" min="0" step="100" value="0" /></div>
+          <div><label>HSA contributions</label><input id="hsa_contrib" type="number" min="0" step="100" value="0" /></div>
+        </div>
+        <div class="btns">
+          <button class="btn secondary" id="back3">Back</button>
+          <button class="btn" id="calcBtn">See Results</button>
+        </div>
+      </section>
+
+      <!-- RESULTS -->
+      <section id="results" class="results" style="display:none;"></section>
     </div>
+
     <script type="module" src="./js/app.js"></script>
   </body>
 </html>
+
