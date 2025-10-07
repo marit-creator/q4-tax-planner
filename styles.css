@@ -43,5 +43,8 @@ input:focus, select:focus{ outline:3px solid #e0e7ff; border-color:#6366f1; }
 .step { display: none !important; }
 .step.active { display: block !important; }
 
+.step { display: none !important; }
+.step.active { display: block !important; }
+
 
 
