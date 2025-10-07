@@ -39,3 +39,9 @@ input:focus, select:focus{ outline:3px solid #e0e7ff; border-color:#6366f1; }
 .results{ margin-top:18px; background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px; padding:16px; }
 .fineprint{ color:#64748b; font-size:12px; margin-top:18px; }
 
+/* --- Wizard paging: FORCE only one step visible --- */
+.step { display: none !important; }
+.step.active { display: block !important; }
+
+
+
