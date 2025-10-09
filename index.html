@@ -23,102 +23,173 @@
       <!-- progress -->
       <div class="progress"><div id="bar" class="bar"></div></div>
 
-      <!-- STEP 1 -->
-      <section class="step active" data-step="1" aria-labelledby="h-step-1">
-        <h2 id="h-step-1">Filing Status</h2>
-        <p class="muted">Select your filing status for 2025</p>
+    <!-- STEP 1: Filing status -->
+<section class="step active" data-step="1" aria-labelledby="h-step-1">
+  <h2 id="h-step-1">Filing Status</h2>
+  <p class="muted">Select your filing status for 2025</p>
+  <div class="choices">
+    <label class="choice"><input type="radio" name="filingStatus" value="single" checked><div class="choice-body"><div class="choice-title">Single</div></div></label>
+    <label class="choice"><input type="radio" name="filingStatus" value="marriedJoint"><div class="choice-body"><div class="choice-title">Married Filing Jointly</div></div></label>
+    <label class="choice"><input type="radio" name="filingStatus" value="marriedSeparate"><div class="choice-body"><div class="choice-title">Married Filing Separately</div></div></label>
+    <label class="choice"><input type="radio" name="filingStatus" value="headOfHousehold"><div class="choice-body"><div class="choice-title">Head of Household</div></div></label>
+  </div>
+  <div class="btns"><button class="btn" id="next1" type="button">Continue</button></div>
+</section>
 
-        <div class="choices">
-          <label class="choice">
-            <input type="radio" name="fs" value="single" checked />
-            <div class="choice-body">
-              <div class="choice-title">Single</div>
-              <div class="choice-sub">Standard deduction example shown next</div>
-            </div>
-          </label>
+<!-- STEP 2: Business type -->
+<section class="step" data-step="2" aria-labelledby="h-step-2">
+  <h2 id="h-step-2">Business Income</h2>
+  <p class="muted">Do you have business income?</p>
+  <div class="choices">
+    <label class="choice"><input type="radio" name="businessType" value="none" checked><div class="choice-body"><div class="choice-title">No business income</div></div></label>
+    <label class="choice"><input type="radio" name="businessType" value="scheduleC"><div class="choice-body"><div class="choice-title">Schedule C (Sole Prop)</div></div></label>
+    <label class="choice"><input type="radio" name="businessType" value="k1"><div class="choice-body"><div class="choice-title">K-1 (Partnership / S-Corp)</div></div></label>
+    <label class="choice"><input type="radio" name="businessType" value="both"><div class="choice-body"><div class="choice-title">Both</div></div></label>
+  </div>
+  <div class="btns">
+    <button class="btn secondary" id="back2" type="button">Back</button>
+    <button class="btn" id="next2" type="button">Continue</button>
+  </div>
+</section>
 
-          <label class="choice">
-            <input type="radio" name="fs" value="mfj" />
-            <div class="choice-body">
-              <div class="choice-title">Married Filing Jointly</div>
-              <div class="choice-sub">Standard deduction example shown next</div>
-            </div>
-          </label>
+<!-- STEP 3: Business income details -->
+<section class="step" data-step="3" aria-labelledby="h-step-3">
+  <h2 id="h-step-3">Business Income Details</h2>
+  <div class="grid">
+    <div id="schedcBox" class="hide">
+      <label>Schedule C Gross Income</label>
+      <input id="businessIncome" type="number" min="0" step="100" value="0">
+      <label class="mt8">Schedule C Expenses (excl. depreciation)</label>
+      <input id="businessExpenses" type="number" min="0" step="100" value="0">
+    </div>
+    <div id="k1Box" class="hide">
+      <label>K-1 Income (pass-through)</label>
+      <input id="k1Income" type="number" min="0" step="100" value="0">
+    </div>
+  </div>
+  <div class="btns">
+    <button class="btn secondary" id="back3" type="button">Back</button>
+    <button class="btn" id="next3" type="button">Continue</button>
+  </div>
+</section>
 
-          <label class="choice">
-            <input type="radio" name="fs" value="mfs" />
-            <div class="choice-body">
-              <div class="choice-title">Married Filing Separately</div>
-              <div class="choice-sub">Standard deduction example shown next</div>
-            </div>
-          </label>
+<!-- STEP 4: Assets & depreciation -->
+<section class="step" data-step="4" aria-labelledby="h-step-4">
+  <h2 id="h-step-4">Business Assets & Depreciation</h2>
+  <div id="assetsList" class="stack"></div>
+  <div class="grid">
+    <div><label>Asset name</label><input id="asset_name" type="text" placeholder="e.g. Computer"></div>
+    <div><label>Cost</label><input id="asset_cost" type="number" min="0" step="100" value="0"></div>
+    <div>
+      <label>Category</label>
+      <select id="asset_cat">
+        <option value="5-year">5-Year (Computers/Equipment)</option>
+        <option value="7-year">7-Year (Furniture/Fixtures)</option>
+        <option value="27.5-year">27.5-Year (Residential Rental)</option>
+        <option value="39-year">39-Year (Commercial Real Estate)</option>
+      </select>
+    </div>
+    <div><label>Business use %</label><input id="asset_use" type="number" min="0" max="100" step="1" value="100"></div>
+    <div><label><input id="asset_bonus" type="checkbox"> 100% bonus depreciation</label></div>
+  </div>
+  <div class="btns">
+    <button class="btn" id="addAsset" type="button">Add Asset</button>
+  </div>
+  <div class="btns">
+    <button class="btn secondary" id="back4" type="button">Back</button>
+    <button class="btn" id="next4" type="button">Continue</button>
+  </div>
+</section>
 
-          <label class="choice">
-            <input type="radio" name="fs" value="hoh" />
-            <div class="choice-body">
-              <div class="choice-title">Head of Household</div>
-              <div class="choice-sub">Standard deduction example shown next</div>
-            </div>
-          </label>
-        </div>
+<!-- STEP 5: Wages & withholding -->
+<section class="step" data-step="5" aria-labelledby="h-step-5">
+  <h2 id="h-step-5">W-2 Wages & Withholding</h2>
+  <div class="grid">
+    <div><label>W-2 wages</label><input id="wages" type="number" min="0" step="500" value="0"></div>
+    <div><label>Federal tax withheld</label><input id="withheld" type="number" min="0" step="100" value="0"></div>
+  </div>
+  <div class="btns">
+    <button class="btn secondary" id="back5" type="button">Back</button>
+    <button class="btn" id="next5" type="button">Continue</button>
+  </div>
+</section>
 
-        <div class="btns">
-          <button class="btn" id="next1" type="button">Continue</button>
-        </div>
-      </section>
+<!-- STEP 6: Rentals yes/no -->
+<section class="step" data-step="6" aria-labelledby="h-step-6">
+  <h2 id="h-step-6">Rental Properties</h2>
+  <div class="choices">
+    <label class="choice"><input type="radio" name="hasRentals" value="false" checked><div class="choice-body"><div class="choice-title">No rentals</div></div></label>
+    <label class="choice"><input type="radio" name="hasRentals" value="true"><div class="choice-body"><div class="choice-title">Yes, I have rentals</div></div></label>
+  </div>
+  <div class="btns">
+    <button class="btn secondary" id="back6" type="button">Back</button>
+    <button class="btn" id="next6" type="button">Continue</button>
+  </div>
+</section>
 
-      <!-- STEP 2 (NEW): Deduction Type -->
-      <section class="step" data-step="2" aria-labelledby="h-step-2">
-        <h2 id="h-step-2">Deduction</h2>
-        <p class="muted">Choose Standard or Itemized. If Itemized, enter your total below.</p>
+<!-- STEP 7: Rental details -->
+<section class="step" data-step="7" aria-labelledby="h-step-7">
+  <h2 id="h-step-7">Rental Details</h2>
+  <div class="grid">
+    <div><label>Number of rental properties</label><input id="numRentals" type="number" min="0" step="1" value="0"></div>
+  </div>
+  <div class="btns">
+    <button class="btn secondary" id="back7" type="button">Back</button>
+    <button class="btn" id="next7" type="button">Continue</button>
+  </div>
+</section>
 
-        <div class="grid">
-          <div>
-            <label>Deduction Type</label>
-            <select id="deductionType">
-              <option value="standard" selected>Standard</option>
-              <option value="itemized">Itemized</option>
-            </select>
-          </div>
-          <div id="itemizedBox" class="hide">
-            <label>Itemized total</label>
-            <input id="itemized" type="number" min="0" step="100" value="0" />
-          </div>
-        </div>
+<!-- STEP 8: Capital gains -->
+<section class="step" data-step="8" aria-labelledby="h-step-8">
+  <h2 id="h-step-8">Capital Gains</h2>
+  <div class="grid">
+    <div><label>Short-term gains (taxed ordinary)</label><input id="stcg" type="number" min="0" step="100" value="0"></div>
+    <div><label>Long-term gains (pref. rates)</label><input id="ltcg" type="number" min="0" step="100" value="0"></div>
+  </div>
+  <div class="btns">
+    <button class="btn secondary" id="back8" type="button">Back</button>
+    <button class="btn" id="next8" type="button">Continue</button>
+  </div>
+</section>
 
-        <div class="btns">
-          <button class="btn secondary" id="back2" type="button">Back</button>
-          <button class="btn" id="next2" type="button">Continue</button>
-        </div>
-      </section>
+<!-- STEP 9: Deductions -->
+<section class="step" data-step="9" aria-labelledby="h-step-9">
+  <h2 id="h-step-9">Deductions</h2>
+  <div class="choices">
+    <label class="choice"><input type="radio" name="deductionType" value="standard" checked><div class="choice-body"><div class="choice-title">Standard deduction</div></div></label>
+    <label class="choice"><input type="radio" name="deductionType" value="itemized"><div class="choice-body"><div class="choice-title">Itemized deductions</div></div></label>
+  </div>
+  <div id="itemizedBox" class="hide">
+    <label>Total itemized deductions</label>
+    <input id="itemized" type="number" min="0" step="100" value="0">
+  </div>
+  <div class="btns">
+    <button class="btn secondary" id="back9" type="button">Back</button>
+    <button class="btn" id="next9" type="button">Continue</button>
+  </div>
+</section>
 
-      <!-- STEP 3: Income -->
-      <section class="step" data-step="3" aria-labelledby="h-step-3">
-        <h2 id="h-step-3">Income</h2>
-        <div class="grid">
-          <div><label>W-2 wages</label><input id="wages" type="number" min="0" step="500" value="0" /></div>
-          <div><label>Schedule C profit</label><input id="sched_c_profit" type="number" min="0" step="500" value="0" /></div>
-          <div><label>Other income</label><input id="other_income" type="number" min="0" step="500" value="0" /></div>
-          <div><label>Long-term capital gains</label><input id="ltcg" type="number" min="0" step="500" value="0" /></div>
-        </div>
-        <div class="btns">
-          <button class="btn secondary" id="back3" type="button">Back</button>
-          <button class="btn" id="next3" type="button">Continue</button>
-        </div>
-      </section>
+<!-- STEP 10: Credits & payments -->
+<section class="step" data-step="10" aria-labelledby="h-step-10">
+  <h2 id="h-step-10">Credits & Payments</h2>
+  <div class="grid">
+    <div><label>Qualifying children (under 17)</label><input id="children" type="number" min="0" step="1" value="0"></div>
+    <div><label>Estimated tax payments made</label><input id="estimated" type="number" min="0" step="100" value="0"></div>
+  </div>
+  <div class="btns">
+    <button class="btn secondary" id="back10" type="button">Back</button>
+    <button class="btn" id="calcBtn" type="button">Calculate my taxes</button>
+  </div>
+</section>
 
-      <!-- STEP 4: Contributions -->
-      <section class="step" data-step="4" aria-labelledby="h-step-4">
-        <h2 id="h-step-4">Contributions (Optional)</h2>
-        <div class="grid">
-          <div><label>Retirement contributions</label><input id="retirement_contrib" type="number" min="0" step="100" value="0" /></div>
-          <div><label>HSA contributions</label><input id="hsa_contrib" type="number" min="0" step="100" value="0" /></div>
-        </div>
-        <div class="btns">
-          <button class="btn secondary" id="back4" type="button">Back</button>
-          <button class="btn" id="calcBtn" type="button">See Results</button>
-        </div>
-      </section>
+<!-- STEP 11: Results -->
+<section class="step" data-step="11" aria-labelledby="h-step-11">
+  <h2 id="h-step-11">Your 2025 Tax Summary</h2>
+  <section id="results" class="results"></section>
+  <div class="btns">
+    <button class="btn" id="restart" type="button">Start Over</button>
+  </div>
+</section>
 
       <!-- RESULTS -->
       <section id="results" class="results" style="display:none;"></section>
@@ -130,3 +201,4 @@
     <script type="module" src="./js/app.js"></script>
   </body>
 </html>
+
