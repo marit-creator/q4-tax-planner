@@ -70,7 +70,7 @@ function renderAssets(){
   if (!wrap) return;
   wrap.innerHTML = '';
   if (!taxData.assets.length){
-    wrap.innerHTML = '<div class="muted">No assets added yet.</div>';
+    wrap.innerHTML = '<div class="muted">Only add assets purchased THIS year</div>';
     return;
   }
   taxData.assets.forEach((a,i)=>{
@@ -245,3 +245,4 @@ function renderResults(){
     <div class="muted" style="margin-top:8px">* Planning estimate only — not individualized tax advice.</div>
   `;
 }
+
