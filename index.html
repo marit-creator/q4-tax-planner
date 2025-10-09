@@ -1,12 +1,3 @@
-<script type="module" src="./js/app.js"></script>
-<script>
-  // TEMP: remove after it works
-  const b = document.getElementById('next1');
-  if (b) b.addEventListener('click', () => alert('HTML button works'));
-</script>
-</body>
-</html>
-
 <!doctype html>
 <html lang="en">
   <head>
@@ -72,9 +63,10 @@
         </div>
 
         <div class="btns">
-          <button class="btn" id="next1">Continue</button>
+          <button class="btn" id="next1" type="button">Continue</button>
         </div>
       </section>
+
       <!-- STEP 2 (NEW): Deduction Type -->
       <section class="step" data-step="2" aria-labelledby="h-step-2">
         <h2 id="h-step-2">Deduction</h2>
@@ -95,11 +87,12 @@
         </div>
 
         <div class="btns">
-          <button class="btn secondary" id="back2">Back</button>
-          <button class="btn" id="next2">Continue</button>
+          <button class="btn secondary" id="back2" type="button">Back</button>
+          <button class="btn" id="next2" type="button">Continue</button>
         </div>
       </section>
- <!-- STEP 3 (moved): Income -->
+
+      <!-- STEP 3: Income -->
       <section class="step" data-step="3" aria-labelledby="h-step-3">
         <h2 id="h-step-3">Income</h2>
         <div class="grid">
@@ -109,11 +102,12 @@
           <div><label>Long-term capital gains</label><input id="ltcg" type="number" min="0" step="500" value="0" /></div>
         </div>
         <div class="btns">
-          <button class="btn secondary" id="back3">Back</button>
-          <button class="btn" id="next3">Continue</button>
+          <button class="btn secondary" id="back3" type="button">Back</button>
+          <button class="btn" id="next3" type="button">Continue</button>
         </div>
       </section>
-       <!-- STEP 4 (renamed): Contributions -->
+
+      <!-- STEP 4: Contributions -->
       <section class="step" data-step="4" aria-labelledby="h-step-4">
         <h2 id="h-step-4">Contributions (Optional)</h2>
         <div class="grid">
@@ -121,8 +115,8 @@
           <div><label>HSA contributions</label><input id="hsa_contrib" type="number" min="0" step="100" value="0" /></div>
         </div>
         <div class="btns">
-          <button class="btn secondary" id="back4">Back</button>
-          <button class="btn" id="calcBtn">See Results</button>
+          <button class="btn secondary" id="back4" type="button">Back</button>
+          <button class="btn" id="calcBtn" type="button">See Results</button>
         </div>
       </section>
 
@@ -130,11 +124,9 @@
       <section id="results" class="results" style="display:none;"></section>
 
       <p class="fineprint">Educational estimator — not individualized tax advice.</p>
-</main>
+    </main>
 
-<script type="module" src="./js/app.js"></script>
-</body>
+    <!-- Load JS while still inside the body -->
+    <script type="module" src="./js/app.js"></script>
+  </body>
 </html>
-
-
-
