@@ -51,4 +51,16 @@ input:focus, select:focus{ outline:3px solid #e0e7ff; border-color:#6366f1; }
 .step.active { display: block !important; }
 .hide { display:none; }
 
+/* paging (keep these) */
+.step { display: none !important; }
+.step.active { display: block !important; }
+.hide { display:none; }
 
+/* little helpers */
+.stack { display: grid; gap: 10px; margin-bottom: 10px; }
+.asset-row { display:flex; align-items:center; justify-content:space-between; padding:10px; border:1px solid #e5e7eb; border-radius:10px; background:#f8fafc; }
+.bold { font-weight:700; }
+.mt8 { margin-top:8px; }
+.btn.danger { background:#ef4444; border-color:#ef4444; }
+.btn.danger:hover { filter: brightness(1.05); }
+.big { font-size:20px; font-weight:700; }
