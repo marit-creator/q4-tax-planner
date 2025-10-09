@@ -64,3 +64,28 @@ input:focus, select:focus{ outline:3px solid #e0e7ff; border-color:#6366f1; }
 .btn.danger { background:#ef4444; border-color:#ef4444; }
 .btn.danger:hover { filter: brightness(1.05); }
 .big { font-size:20px; font-weight:700; }
+
+/* Progress bar & step text */
+.progress-container {
+  margin-bottom: 1rem;
+}
+.progress-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 4px;
+}
+.progress {
+  height: 6px;
+  background-color: #e5e7eb;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.bar {
+  height: 6px;
+  background-color: #2563eb;
+  width: 8%;
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
